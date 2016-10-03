@@ -48,7 +48,6 @@ namespace UnityStandardAssets._2D
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
         }
 
-
         public void Move(float move, bool crouch, bool jump)
         {
             // If crouching, check to see if the character can stand up

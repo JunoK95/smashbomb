@@ -58,6 +58,14 @@ public class Weapon : MonoBehaviour {
         Debug.Log(tempBulletHandler.transform.up);
         tempRigidBody.AddForce(tempBulletHandler.transform.up.normalized * bulletSpeed, ForceMode2D.Impulse);
 
+        StartCoroutine(WaitandTrigger(bulletLifeTime*.8f,tempBulletHandler));
         Destroy(tempBulletHandler, bulletLifeTime);
+    }
+
+    IEnumerator WaitandTrigger(float waitTime, GameObject bullethandle)
+    {
+        yield return new WaitForSeconds(waitTime);
+        bullethandle.GetComponent<CircleCollider2D>().enabled = true;
+        Debug.Log("trig");
     }
 }
