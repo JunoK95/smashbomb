@@ -65,6 +65,7 @@ public class Weapon : MonoBehaviour {
     IEnumerator WaitandTrigger(float waitTime, GameObject bullethandle)
     {
         yield return new WaitForSeconds(waitTime);
+        bullethandle.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
         bullethandle.GetComponent<CircleCollider2D>().enabled = true;
         Debug.Log("trig");
     }
