@@ -15,7 +15,7 @@ public class KillZoneRespawn : MonoBehaviour {
 	    
 	}
 
-    void OnTriggerEnter2D(Collider2D     player)
+    void OnTriggerEnter2D(Collider2D player)
     {
         if (player.gameObject.tag == "Player")
         {

@@ -10,8 +10,8 @@ public class BulletExplosion : MonoBehaviour {
     private float ydirection = 1;
 	// Use this for initialization
 	void Start () {
-	
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -20,17 +20,20 @@ public class BulletExplosion : MonoBehaviour {
 
     void OnTriggerStay2D (Collider2D trigger)
     {
+        float gameObjectPosx = trigger.gameObject.transform.position.x;
+        float gameObjectPosy = trigger.gameObject.transform.position.y;
+        Vector3 directionVector;
         if (trigger.gameObject.tag == "Player")
         {
-            if (trigger.gameObject.transform.position.x <= this.transform.position.x)
+            if (gameObjectPosx <= this.transform.position.x)
             {
-                xdirection = -1;
+                xdirection = 1;
             } 
             else
             {
-                xdirection = 1;
+                xdirection = -1;
             }
-            if (trigger.gameObject.transform.position.y <= this.transform.position.y)
+            if (gameObjectPosy > this.transform.position.y)
             {
                 ydirection = -1;
             }
@@ -38,17 +41,10 @@ public class BulletExplosion : MonoBehaviour {
             {
                 ydirection = 1;
             }
-            Debug.Log("Hit");
-            //trigger.gameObject.GetComponent<UnityStandardAssets._2D.Platformer2DUserControl>().enabled = false;
-            
-            trigger.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(xdirection,ydirection,0).normalized * knockBackSpeed;
-            StartCoroutine(knockBackStun(knockBackStunTime));
-            //trigger.gameObject.GetComponent<UnityStandardAssets._2D.Platformer2DUserControl>().enabled = true;      
-        }
-    }
+            Debug.Log(ydirection);
 
-    IEnumerator knockBackStun(float stunTime)
-    {
-        yield return new WaitForSeconds(stunTime);
-    }
+            directionVector = (new Vector3((this.gameObject.transform.position.x - gameObjectPosx)*xdirection, (this.gameObject.transform.position.y - gameObjectPosy) * ydirection, 0).normalized);
+            trigger.gameObject.GetComponent<Rigidbody2D>().velocity = directionVector * knockBackSpeed;     
+        }
+    }   
 }
